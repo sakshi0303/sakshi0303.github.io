@@ -7,6 +7,18 @@
 (function() {
   "use strict";
 
+  var button = document.getElementById("btn");
+
+  button.addEventListener("click", function () {
+    button.disabled = true;
+    button.innerHTML = "Waiting...";
+      
+    setTimeout(function () {
+      button.innerHTML = "Thank you!";
+      button.disabled = false;
+    }, 2000);
+  });
+
   /**
    * Easy selector helper function
    */
