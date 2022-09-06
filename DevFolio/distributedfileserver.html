@@ -47,7 +47,7 @@
           <li><a class="nav-link scrollto" href="#services">Services</a></li>
           <li><a class="nav-link scrollto " href="#work">Work</a></li>
           <li><a class="nav-link scrollto " href="#blog">Blog</a></li>
-          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
+          <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
               <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
@@ -63,7 +63,7 @@
               <li><a href="#">Drop Down 3</a></li>
               <li><a href="#">Drop Down 4</a></li>
             </ul>
-          </li>
+          </li> -->
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
@@ -77,12 +77,12 @@
     <div class="hero-content display-table">
       <div class="table-cell">
         <div class="container">
-          <h2 class="hero-title mb-4">PROJECT Details</h2>
+          <h2 class="hero-title mb-4">Distributed file server</h2>
           <ol class="breadcrumb d-flex justify-content-center">
             <li class="breadcrumb-item">
               <a href="#">Home</a>
             </li>
-            <li class="breadcrumb-item active">Project Details</li>
+            <li class="breadcrumb-item active">Distributed file server</li>
           </ol>
         </div>
       </div>
@@ -91,8 +91,8 @@
 
   <main id="main">
 
-    <!-- ======= Project Details Section ======= -->
-    <section id="project-details" class="portfolio-details">
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
       <div class="container">
 
         <div class="row gy-4">
@@ -102,15 +102,25 @@
               <div class="swiper-wrapper align-items-center">
 
                 <div class="swiper-slide">
-                  <img src="assets/img/portfolio-details-1.jpg" alt="">
+                  <img src="assets/img/server.jpg" alt="">
                 </div>
 
                 <div class="swiper-slide">
-                  <img src="assets/img/portfolio-details-2.jpg" alt="">
+                  <img src="assets/img/lamportclock.jpg" alt="">
                 </div>
 
                 <div class="swiper-slide">
-                  <img src="assets/img/portfolio-details-3.jpg" alt="">
+                  <img src="assets/img/log1.jpg" alt="">
+                </div>
+
+                <div class="swiper-slide">
+                  <img src="assets/img/log2.jpg" alt="">
+                </div>
+
+                
+
+                <div class="swiper-slide">
+                  <img src="assets/img/log3.jpg" alt="">
                 </div>
 
               </div>
@@ -122,19 +132,22 @@
             <div class="portfolio-info">
               <h3>Project information</h3>
               <ul>
-                <li><strong>Category</strong>: Web design</li>
-                <li><strong>Client</strong>: ASU Company</li>
-                <li><strong>Project date</strong>: 01 March, 2020</li>
-                <li><strong>Project URL</strong>: <a href="#">https://github.com/sakshi0303/data-api</a></li>
+                <li><strong>Category</strong>: Distributed file server</li>
+                <li><strong>Project date</strong>: 20 Feb. 2022</li>
+                <!-- <li><a href="https://github.com/sakshi0303/"><span class="ico-circle"><i class="bi bi-github"></i></span></a></li>
+                         -->
+                <li><strong>Project URL</strong><i class="bi bi-github">: </i><a href="https://github.com/sakshi0303/distributedFileServer" target="_blank">https://github.com/sakshi0303/distributedFileServer</li>
               </ul>
             </div>
             <div class="portfolio-description">
-              <h2>This is an example of project detail</h2>
+              <b>Language: Python, RPC, CLI</b><br><br>
               <p>
-                • Designed HTTP API’s for uploading, downloading, and deleting datasets
-                • Leveraged AWS S3, DynamoDB  as backend storage for storing these datasets based on the use case
-                • Developed a front-end interface using Jinja templating and HTML
-                • Documented the architecture diagram and estimated the costs of the infrastructure
+                • Designed a drop box like feature for synchronizing the client and server files using RPC protocol <br>
+                • Leveraged multi-threading to perform the four basic operations: UPLOAD, DOWNLOAD, DELETE, and RENAME <br>
+                • Created a python CLI for interacting with the client and server <br>
+                • Synchronized the nodes by using a logical clock represented by number of messages sent and received <br>
+                • Enriched the node-to-node communication with a vector clock to demonstrate the order of events <br>
+                • Benchmarked and optimized the server by creating latency metrics and load testing with concurrent requests <br>
               </p>
             </div>
           </div>
