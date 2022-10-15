@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Image Classifier</title>
+    <meta name="author" content="name" />
+    <meta name="description" content="description here" />
+    <meta name="keywords" content="keywords,here" />
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss@2.2.19/dist/tailwind.min.css"/>
+    <!--Replace with your tailwind.css once created-->
+	<style>
+		
+		code { 
+  			font-family: monospace;
+			}
+		img {
+  			display: block;
+ 			margin-left: auto;
+  			margin-right: auto;
+			}
+		</style>
+  </head>
+
+  
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+	<nav id="header" class="fixed w-full z-10 top-0">
+
+		<div id="progress" class="h-1 z-20 top-0" style="background:linear-gradient(to right, #4dc0b5 var(--scroll), transparent 0);"></div>
+
+		<div class="w-full md:max-w-4xl mx-auto flex flex-wrap items-center justify-between mt-0 py-3">
+
+			<div class="pl-4">
+				<a class="text-gray-900 text-base no-underline hover:no-underline font-extrabold text-xl" href="#">
+					ImageClassifiers
+				</a>
+			</div>
+
+			<div class="block lg:hidden pr-4">
+				<button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-gray-500 border-gray-600 hover:text-gray-900 hover:border-green-500 appearance-none focus:outline-none">
+					<svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+						<title>Menu</title>
+						<path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
+					</svg>
+				</button>
+			</div>
+
+			<div class="w-full flex-grow lg:flex lg:items-center lg:w-auto hidden lg:block mt-2 lg:mt-0 bg-gray-100 md:bg-transparent z-20" id="nav-content">
+				<ul class="list-reset lg:flex justify-end flex-1 items-center">
+					<li class="mr-3">
+						<a target="_blank" class="inline-block py-2 px-4 text-gray-900 font-bold no-underline" href="#">Active</a>
+					</li>
+					<li class="mr-3">
+						<a target="_blank" class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4" href="https://www.linkedin.com/in/sakshi-srivastava-aa2a5591/">linkedin</a>
+					</li>
+					<li class="mr-3">
+						<a target="_blank" class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-2 px-4" href="https://github.com/sakshi0303/">Github</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!--Container-->
+	<div class="container w-full md:max-w-3xl mx-auto pt-20">
+		<div class="w-full px-4 md:px-6 text-xl text-gray-800 leading-normal" style="font-family:Georgia,serif;">
+			<!--Title-->
+			<div class="font-sans">
+				<p class="text-base md:text-sm text-green-500 font-bold"><!--- <a href="#" class="text-base md:text-sm text-green-500 font-bold no-underline hover:underline">BACK TO BLOG</a> --></p>
+				<!-- <blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+				<h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl"> Image Classifier</h1></blockquote> -->
+						<p class="text-sm md:text-base font-normal text-gray-600">Published 13 October 2022</p> 
+			</div>
+			<!--Post Content-->
+			<!--Lead Para-->
+			<p class="py-6">
+				👋 Hi!!
+				Have you ever wondered how all people in a group photo are automatically labelled in your Phone Gallary? 
+				Behind every interactive user interface there are complex algorithm that is used to recognize and label each picture on any given platform. 
+				With every picture of ours, we only aid in improving the algorithm’s efficiency.
+				<br/>
+				<br/>
+				Image Classification is one of the most widely used algorithms where we see the application of Artificial Intelligence.
+				In this article, we will learn how to use a convolutional neural network to build an ImageClassifiers that helps recognize Images.
+				We will use Keras with TensorFlow to train our ML models to identify Airplanes, Motorbikes & Schooners from <a class="text-green-500 no-underline hover:underline" href="https://www.kaggle.com/datasets/maricinnamon/caltech101-airplanes-motorbikes-schooners ">Kaggle</a> datasets.<br/>
+				<img src="airplanes.jpg" alt="" style="float:left;width:80px;height:80px;">
+				<img src="motorbikes.jpg" alt="" style="float:left;width:80px;height:80px;" >
+				<img src="schooner.jpg" alt="" style="float:left;width:80px;height:80px;" >
+				<br/>
+			</p>
+			
+			<p class="py-6">
+				<br/>
+				Consider the above image example of what the human and the machine sees. As we see the entire picture, the computer sees an array of pixels. For example, if the image size if 128×128, then the size of the array will be 128x128x3. 
+				
+				Here, 128 stands for each height and width, 3 stands for the RGB channel where each colour channel is represented by a separate array. The pixel intensity varies from 0 to 255.
+				<br/>				 
+				By using multiple Convolutional and Pooling layers, computer extracts the base level features from the images. 
+				<br/>
+				<img src="BasicCNNModel.jpg" height="500" width="500" align="left" alt="" >
+				<br><br><br><br><br><br><br><br>
+				<a class="text-green-500 no-underline hover:underline" href="https://medium.com/techiepedia/binary-image-classifier-cnn-using-tensorflow-a3f5d6746697">Source:</a> Basic CNN Architecture:
+				
+				<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+	
+				<b>Explaination of Basic Algorithm</b>
+				</blockquote>
+				Neural networks calculate the weighted sums. The calculated sum of weights is passed as input to the activation function in the hidden layers. The activation function is a function to map the inputs to the desired output. It takes the “weighted sum of input” as the input to the function, adds a bias, and decides whether the neuron should be fired or not. The output layer gives the predicted output, and the model output is compared with the actual output. After training the neural network, the model uses the backpropagation method to improve the performance of the network. The cost function helps to reduce the error rate.
+				<br>
+				<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+	
+				<h3 class="py-2 font-sans"><b>Importing libraries</b></h3>
+				</blockquote>
+
+			</p>
+				<p>
+				<pre class="bg-gray-900 rounded text-white font-mono text-base">
+					<code>
+#framework that help you build deep neural network
+&gt; !pip install keras  
+&gt; !pip install tensorflow
+&gt; import tensorflow as tf 
+						
+#tensorflow version
+&gt; print(tf.__version__)
+&gt;import numpy as np 
+&gt;import pandas as pd 
+&gt;import os
+									
+#data virtulisation 
+&gt;import matplotlib.image as mpimg 
+&gt;import matplotlib.pyplot as plt
+&gt;import seaborn as sns
+&gt;import cv2 	
+&gt;%matplotlib inline
+
+#generate batches of tensor image data with real time data augumentation
+&gt;from keras.preprocessing.image import ImageDataGenerator
+&gt;from glob import glob	
+
+#mount Drive on Colab
+&gt;import cv2
+&gt;from google.colab.patches import cv2_imshow
+
+#getiing kaggle dataset directly to Colab
+&gt;!pip install -q kaggle
+
+#download datasets that are not listed in the kaggle competitions
+&gt;!kaggle datasets download -d maricinnamon/'competition name' -p /content/drive/MyDrive/ --unzip
+					</code>
+				</pre>
+				<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+	
+				<h3 class="py-2 font-sans">Splitting kaggle Datasets into Dev/Valid/Test ratio </h3>			
+				</blockquote></p>			
+<p>
+<pre class="bg-gray-900 rounded text-white font-mono text-base">
+<code>
+&gt;pip install split-folders
+&gt;splitfolders.ratio("/content/drive/MyDrive/", output="/content/drive/MyDrive/SplitData",seed=1337, ratio=(.8, .1, .1), group_prefix=None, move=False)
+</code>
+</pre>
+
+
+
+<p>
+	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+	
+	<h4 class="py-2 font-sans">Model Evaluation on differnt CNN models</h4></blockquote>
+	<img src="performancemeasure.jpg" alt="" >
+</p>
+
+
+
+<p>
+	<br>
+	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+		Model-1 (no pre-processing)</blockquote>
+<img src="model1.jpg" height="500" width="500" align="left" alt="" ><br>
+<img src="model1classifier.jpg" height="500" width="500" align="left" alt="" ><br>
+<img src="model1log.jpg" height="500" width="500" align="left" alt="" ><br>
+<img src="model1graph.jpg" height="500" width="500" align="left" alt="" ><br>
+<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
+
+</p>
+<p>
+	<br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+		Model-2 (with pre-processing parameters)</blockquote>
+	<img src="model2.jpg" height="500" width="500" align="left"  alt="" >
+	<img src="model2classifier.jpg" height="500" width="500" align="left" alt="" >
+	<img src="model2log.jpg" height="500" width="500" align="left" alt="" >
+	<img src="model2graph.jpg"height="500" width="500" align="left"  alt="" >
+	<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
+
+</p>
+<p>
+	<br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+		Model-3 (increase layers(4))</blockquote>
+		<img src="model3.jpg" height="500" width="500" align="left" alt="" >
+		<img src="model3classifier.jpg" height="500" width="500" align="left" alt="" >
+		<img src="model3log.jpg" height="500" width="500" align="left" alt="" >
+		<img src="model3graph.jpg" height="500" width="500" align="left" alt="" >
+		<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
+		
+</p>
+		
+<p>
+	<br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br>
+	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+		Model-4 (increase epoch limit(30))</blockquote>
+	<img src="model4.jpg" height="500" width="500" align="left"  alt="" >
+	<img src="model4classifier.jpg" height="500" width="500" align="left"  alt="" >
+	<img src="model4log.jpg" height="500" width="500" align="left"  alt="" >
+	<img src="model4graph.jpg" height="500" width="500" align="left"  alt="" >
+	<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
+	
+</p>
+
+<p>
+	<br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br>
+	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+		Model-5 (increase layers(5))</blockquote>
+	<img src="model5.jpg" height="500" width="500" align="left" alt="" >
+	<img src="model5classifier.jpg" height="500" width="500" align="left" alt="" >
+	<img src="model5log.jpg" height="500" width="500" align="left" alt="" >
+	<img src="model5graph.jpg" height="500" width="500" align="left" alt="" >
+	<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
+	
+</p>
+
+<p>
+	<br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br>
+	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+		Model-6 (number of neuron=100,200,100(3 layers))</blockquote>
+	<img src="model6.jpg" height="500" width="500" align="left" alt="" >
+	<img src="model6classifier.jpg" height="500" width="500" align="left" alt="" >
+	<img src="model6log.jpg" height="500" width="500" align="left" alt="" >
+	<img src="model6graph.jpg" height="500" width="500" align="left" alt="" >
+	<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
+	
+</p>
+<p>
+	<br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br>
+	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+		Model-7 (number of neuron=200,300,100(3 layers))</blockquote>
+	<img src="model7.jpg" height="500" width="500" align="left" alt="" >
+	<img src="model7classifier.jpg" height="500" width="500" align="left" alt="" >
+	<img src="model7log.jpg" height="500" width="500" align="left" alt="" >
+	<img src="model7graph.jpg" height="500" width="500" align="left" alt="" >
+	<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
+	
+</p>
+<p>
+	<br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br>
+	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+		Model-8 (shape of conv2d=(32,32,3))</blockquote>
+	<img src="model8.jpg" height="500" width="500" align="left" alt="" >
+	<img src="model8classifier.jpg" height="500" width="500" align="left" alt="" >
+	<img src="model8log.jpg" height="500" width="500" align="left" alt="" >
+	<img src="model8graph.jpg" height="500" width="500" align="left" alt="" >
+	<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
+	
+</p>
+<p>
+	<br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br>
+	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+Model-9: no. of neuron=200,300,100,200,300 layer(5) shape of conv2d=(128,128,1)
+</blockquote>
+	<img src="model9.jpg" height="500" width="500" align="left" alt="" >
+	<img src="model9classifier.jpg"  height="500" width="500" align="left" alt="" >
+	<img src="model9log.jpg" height="500" width="500" align="left" alt="" >
+	<img src="model9graph.jpg" height="500" width="500" align="left" alt="" >
+	<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
+	
+</p>
+<p>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+		
+	<h4 class="py-2 font-sans">Time-Differnce between Models</h4></blockquote>
+	<!-- <img src="modelperformance.jpg" height="500" width="500" align="left" alt="" > -->
+	<img src="trainingtime.jpg" height="500" width="500" align="left" alt="" >
+
+</p>
+
+<p>
+	<br><br><br><br><br><br><br><br><br><br>
+	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+		
+	<h4 class="py-2 font-sans">Performance Measures</h4></blockquote>
+	<img src="performanceloss.jpg" height="500" width="500" align="left" alt="" >
+	<img src="performance.jpg"  height="500" width="500" align="left" alt="" >
+
+</p>
+<p>
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<br><br><br>
+	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+
+	<h9 class="py-2 font-sans">Prediction on New Data</h9>
+	</blockquote>
+	
+	<pre class="bg-gray-900 rounded text-white font-mono text-base">
+				
+	<code>
+#Making_single_predictions
+from tensorflow.keras.utils import load_img,img_to_array
+
+testImage="/content/drive/MyDrive/caltech101-airplanes-motorbikes-schooners/SplitData/test/airplanes/image_0013.jpg"
+test_image=load_img(testImage,target_size=(128,128))
+test_image=img_to_array(test_image)
+test_image=np.expand_dims(test_image,axis=0)
+result=classifier.predict(test_image,verbose=0)
+img=cv2.imread(testImage)
+
+plt.imshow(img)
+plt.title('picture')
+plt.show()
+print("_"*50)
+print('Prediction is: ',Resultmap[np.argmax(result)])
+	</code>
+	</pre>
+	<img src="predictionresult.jpg"height="500" width="500" align="left"  alt="" >
+</p>
+
+<p>
+	<br><br><br><br><br><br><br><br><br>
+	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+
+	<h4 class="py-2 font-sans"><b>Further Improvisation </b></h4></blockquote>
+	<b>Pruning</b><br>
+Pruning can be used to optimize the number of neurons in the hidden layer and increases computational and resolution performances. It trims the neurons during training, by identifying those which have no impact on the performance of the network. It can also be identified by checking the weights of the neurons, weights that are close to zero have relatively less importance.
+<br>Moreover, the number of neurons and number layers required for the hidden layer also depends upon training cases, amount of outliers, the complexity of data that is to be learned, and the type of activation functions used.
+</p>
+
+<p>
+	<br>
+	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+
+	<h4 class="py-2 font-sans"><b>Challenges faced</b></h4>
+	</blockquote>
+
+	<b>Challenge 1:</b>In Model8 Input Size and input shape was leading to alot of  matrix incompatibility.
+	<br><b>Solution:</b> Used same pixels for both inputSize and inputShape
+	<br><br><b>Challenge 2:</b> Loading dataset from kaggle datset
+	<br><b>Solution:</b> Used kaggle.json to create session between google Colab and kaggle website
+	<br><br><b>Challenge 3:</b> Number of Neurons In Input and Output Layers
+	<br><b>Solution:</b>If less number of neurons is chosen it will lead to underfitting and high statistical bias. Whereas if we choose too many neurons it may lead to overfitting, high variance, and increases the time it takes to train the network.
+	<br>
+
+</p>
+<p>
+	<br>
+	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+
+	<h4 class="py-2 font-sans"><b>References</b></h4>	</blockquote>
+	[1] Filemon.Warsaw-Poland. Ways to download kaggle data in Google Colab
+	DOI:https://www.kaggle.com/general/74235
+	<br>
+	[2] Johannes Filter.Release 0.5.1Split folders with files (e.g. images) into train, validation and test (dataset) folders.DOI:https://libraries.io/pypi/split-folders
+	<br>
+	[3] Jannik Zürn PhD student in robotics DOI https://jannik-zuern.medium.com/using-a-tpu-in-google-colab-54257328d7da
+	</p>
+
+<p>
+	<br>
+	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+
+	<h4 class="py-2 font-sans"><b> Contribution over References</b></h4></blockquote>
+	-directly mount google drive instead of storing split datasets (default) sample_data folder provided by google colab.
+	<br>-one epoch takes approximately 25 secs compared to the approx. 7 minutes on the Tesla K80 GPU, resulting in a speedup of almost 17.Thus,Enabling TPU support in notebook 
+</p>
+			
+			
+			
+			
+
+			
+			
+
+			
+			<!--/ Post Content-->
+
+		</div>
+
+		<!-- Tags
+		<div class="text-base md:text-sm text-gray-500 px-4 py-6">
+			Tags: <a href="#" class="text-base md:text-sm text-green-500 no-underline hover:underline">Link</a> . <a href="#" class="text-base md:text-sm text-green-500 no-underline hover:underline">Link</a>
+		</div> -->
+
+		<!--Divider-->
+		<hr class="border-b-2 border-gray-400 mb-8 mx-4">
+
+		<!--Author-->
+		<div class="flex w-full items-center font-sans px-4 py-12">
+			<img class="w-10 h-10 rounded-full mr-4" src="sakshi.jpg" alt="Avatar of Author">
+			<div class="flex-1 px-2">
+				<p class="text-base font-bold text-base md:text-xl leading-none mb-2">Sakshi</p>
+				<p class="text-gray-600 text-xs md:text-base">Learning never Stops</p>
+			</div>
+			<!-- <div class="justify-end">
+				<button class="bg-transparent border border-gray-500 hover:border-green-500 text-xs text-gray-500 hover:text-green-500 font-bold py-2 px-4 rounded-full">Read More</button>
+			</div> -->
+		</div>
+		<!--/Author-->
+
+		<!--Divider-->
+		<hr class="border-b-2 border-gray-400 mb-8 mx-4">
+
+		<!--Next & Prev Links-->
+		<div class="font-sans flex justify-between content-center px-4 pb-12">
+			<div class="text-left">
+				<span class="text-xs md:text-sm font-normal text-gray-600"> Previous Post:</span><br>
+				<p><a target="_blank" href="https://machinelearningprinciples.blogspot.com/2022/10/MachineLearningPrinciples.html" class="break-normal text-base md:text-sm text-green-500 font-bold no-underline hover:underline">Efficien Guide to Machine Learning predictive model </a></p>
+			</div>
+			<!-- <div class="text-right">
+				<span class="text-xs md:text-sm font-normal text-gray-600">Next Post &gt;</span><br>
+				<p><a href="#" class="break-normal text-base md:text-sm text-green-500 font-bold no-underline hover:underline">Blog title</a></p>
+			</div> -->
+		</div>
+
+
+		<!--/Next & Prev Links-->
+
+	</div>
+	<!--/container-->
+
+	<footer class="bg-white border-t border-gray-400 shadow">
+		<div class="container max-w-4xl mx-auto flex py-8">
+
+			<div class="w-full mx-auto flex flex-wrap">
+				<div class="flex w-full md:w-1/2 ">
+					<div class="px-8">
+						<h3 class="font-bold text-gray-900">About</h3>
+						<p class="py-4 text-gray-600 text-sm">
+							I’m a lifelong equestrian, and horses have taught me the importance of trusting your instincts, always looking ahead, and communicating with purpose. 
+						</p>
+					</div>
+				</div>
+
+				<div class="flex w-full md:w-1/2">
+					<div class="px-8">
+						<h3 class="font-bold text-gray-900">Social</h3>
+						<ul class="list-reset items-center text-sm pt-3">
+							<li>
+								<a target="_blank" class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-1" href="https://www.linkedin.com/in/sakshi-srivastava-aa2a5591/">linkedin</a>
+							</li>
+							<li>
+								<a target="_blank" class="inline-block text-gray-600 no-underline hover:text-gray-900 hover:text-underline py-1" href="https://github.com/sakshi0303/">Github</a>
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+
+
+
+		</div>
+	</footer>
+
+	<script>
+		/* Progress bar */
+		//Source: https://alligator.io/js/progress-bar-javascript-css-variables/
+		var h = document.documentElement,
+			b = document.body,
+			st = 'scrollTop',
+			sh = 'scrollHeight',
+			progress = document.querySelector('#progress'),
+			scroll;
+		var scrollpos = window.scrollY;
+		var header = document.getElementById("header");
+		var navcontent = document.getElementById("nav-content");
+
+		document.addEventListener('scroll', function() {
+
+			/*Refresh scroll % width*/
+			scroll = (h[st] || b[st]) / ((h[sh] || b[sh]) - h.clientHeight) * 100;
+			progress.style.setProperty('--scroll', scroll + '%');
+
+			/*Apply classes for slide in bar*/
+			scrollpos = window.scrollY;
+
+			if (scrollpos > 10) {
+				header.classList.add("bg-white");
+				header.classList.add("shadow");
+				navcontent.classList.remove("bg-gray-100");
+				navcontent.classList.add("bg-white");
+			} else {
+				header.classList.remove("bg-white");
+				header.classList.remove("shadow");
+				navcontent.classList.remove("bg-white");
+				navcontent.classList.add("bg-gray-100");
+
+			}
+
+		});
+
+
+		//Javascript to toggle the menu
+		document.getElementById('nav-toggle').onclick = function() {
+			document.getElementById("nav-content").classList.toggle("hidden");
+		}
+	</script>
+
+</body>
+
+</html>
