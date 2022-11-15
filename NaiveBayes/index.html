@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Image Classifier</title>
+    <title>Naive Bayes Classifier</title>
     <meta name="author" content="name" />
     <meta name="description" content="description here" />
     <meta name="keywords" content="keywords,here" />
@@ -34,7 +34,7 @@
 
 			<div class="pl-4">
 				<a class="text-gray-900 text-base no-underline hover:no-underline font-extrabold text-xl" href="#">
-					ImageClassifiers
+					Naive Bayes Classifier
 				</a>
 			</div>
 
@@ -71,341 +71,202 @@
 				<p class="text-base md:text-sm text-green-500 font-bold"><!--- <a href="#" class="text-base md:text-sm text-green-500 font-bold no-underline hover:underline">BACK TO BLOG</a> --></p>
 				<!-- <blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
 				<h1 class="font-bold font-sans break-normal text-gray-900 pt-6 pb-2 text-3xl md:text-4xl"> Image Classifier</h1></blockquote> -->
-						<p class="text-sm md:text-base font-normal text-gray-600">Published 13 October 2022</p> 
+						<p class="text-sm md:text-base font-normal text-gray-600">Published 14 November 2022</p> 
 			</div>
 			<!--Post Content-->
 			<!--Lead Para-->
 			<p class="py-6">
 				👋 Hi!!
-				Have you ever wondered how all people in a group photo are automatically labelled in your Phone Gallary? 
-				Behind every interactive user interface there are complex algorithm that is used to recognize and label each picture on any given platform. 
-				With every picture of ours, we only aid in improving the algorithm’s efficiency.
-				<br/>
-				<br/>
-				Image Classification is one of the most widely used algorithms where we see the application of Artificial Intelligence.
-				In this article, we will learn how to use a convolutional neural network to build an ImageClassifiers that helps recognize Images.
-				We will use Keras with TensorFlow to train our ML models to identify Airplanes, Motorbikes & Schooners from <a target="_blank" class="text-green-500 no-underline hover:underline" href="https://www.kaggle.com/datasets/maricinnamon/caltech101-airplanes-motorbikes-schooners ">Kaggle</a> datasets.<br/>
-				<img src="airplanes.jpg" alt="" style="float:left;width:80px;height:80px;">
-				<img src="motorbikes.jpg" alt="" style="float:left;width:80px;height:80px;" >
-				<img src="schooner.jpg" alt="" style="float:left;width:80px;height:80px;" >
-				<br/>
-			</p>
-			
-			<p class="py-6">
-				<br/>
-				Consider the above image example of what the human and the machine sees. As we see the entire picture, the computer sees an array of pixels. For example, if the image size if 128×128, then the size of the array will be 128x128x3. 
-				
-				Here, 128 stands for each height and width, 3 stands for the RGB channel where each colour channel is represented by a separate array. The pixel intensity varies from 0 to 255.
-				<br/>				 
-				By using multiple Convolutional and Pooling layers, computer extracts the base level features from the images. 
-				<br/>
-				<img src="BasicCNNModel.jpg" height="500" width="500" align="left" alt="" >
-				<br><br><br><br><br><br><br><br>
-				<a class="text-green-500 no-underline hover:underline" href="https://medium.com/techiepedia/binary-image-classifier-cnn-using-tensorflow-a3f5d6746697">Source:</a> Basic CNN Architecture:
+				Naive Bayes Classifications is a Supervised machine learning algorithm used for classification.It consist of two words Naive and Bayes. So let’s first discuss the Bayes Theorem.
 				
 				<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-	
-				<b>Explaination of Basic Algorithm</b>
+					<b>What is Bayes Theorem?</b>
 				</blockquote>
-				Neural networks calculate the weighted sums. The calculated sum of weights is passed as input to the activation function in the hidden layers. The activation function is a function to map the inputs to the desired output. It takes the “weighted sum of input” as the input to the function, adds a bias, and decides whether the neuron should be fired or not. The output layer gives the predicted output, and the model output is compared with the actual output. After training the neural network, the model uses the backpropagation method to improve the performance of the network. The cost function helps to reduce the error rate.
+				
+				Bayes theorem works on conditional probability. Conditional probability is the probability that something will happen, given that something else has already occurred. Using the conditional probability, we can calculate the probability of an event using its prior knowledge.
+				It is stated mathematically as the following equation,
+				<a target="_blank" class="text-green-500 no-underline hover:underline" href="https://www.kaggle.com/datasets/gaveshjain/ford-sentence-classifiaction-dataset?resource=download">DataSet from Kaggle</a><br/>
+				<img src="images/naivebayesformula.jpg" alt="" >
+				<br/>
+				where,<br/>
+    					<b>–</b> A and B are events and P(B)!=0
+    					<br/><b>–</b> P(A | B) is a conditional probability that defines the likelihood of event A occurring given that B is true, also – known as posterior probability,
+    					<br/><b>–</b> P(B | A) is a conditional probability that defines the likelihood of event B occurring given that A is true, also known as the likelihood
+    					<br/><b> –</b> P(A) and P(B) are the probabilities of observing A and B independently of each other, also known as prior probability
+
+				<br>-------------------------------------------------------------------------------------------------
+				<br><b>
+					<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+						<b>Why Naive Bayes is so ‘Naive’ ?</b>
+					</blockquote>
+				</b>
+				
+				-->The Naive Bayes Classifier assumes that a particular feature in a class is independent of other features due to which it gets its name to be “Naive”. 
+				<br>The presence or absence of a feature does not affect other features in the data.
+
+				<br><br>-------------------------------------------------------------------------------------------------
+				
+				
+				<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+					<b> Step-wise Python implementation of Naive Bayes Classifier algorithm.</b>
+				</blockquote>
+				
+					The first step in our algorithm is to load the dataset. We load the Ford Sentence classification dataset in 
+					a panda dataframe. The algorithm and all the helper functions are implemented under class FordSentenceClassifier()
+ 					
+				<br>
+				<br>
+					After that we perform pre-processing to clean up strings by removing
+					punctuations, tokenizing sentences into words and a step to count the frequence of words which appear in each sentence.
+				<br>
 				<br>
 				<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-	
-				<h3 class="py-2 font-sans"><b>Importing libraries</b></h3>
+						<b>1. Understanding the algorithm</b>
 				</blockquote>
+				<br>
+					We need three things: the probability that a sentence belongs to a particular class (log priors), a vacublary of words,
+					and word frequency for each class/label (number of times a given word appears in sentence of particular class/label)
 
-			</p>
+					We compute the log class priors by counting how many sentences are in our dataset for each class and dividing by the total number.
+					Finally we use the math library to take the log						
+				<br>
 				<p>
-				<pre class="bg-gray-900 rounded text-white font-mono text-base">
-					<code>
-#framework that help you build deep neural network
-&gt; !pip install keras  
-&gt; !pip install tensorflow
-&gt; import tensorflow as tf 
-						
-#tensorflow version
-&gt; print(tf.__version__)
-&gt;import numpy as np 
-&gt;import pandas as pd 
-&gt;import os
-									
-#data virtulisation 
-&gt;import matplotlib.image as mpimg 
-&gt;import matplotlib.pyplot as plt
-&gt;import seaborn as sns
-&gt;import cv2 	
-&gt;%matplotlib inline
-
-#generate batches of tensor image data with real time data augumentation
-&gt;from keras.preprocessing.image import ImageDataGenerator
-&gt;from glob import glob	
-
-#mount Drive on Colab
-&gt;import cv2
-&gt;from google.colab.patches import cv2_imshow
-
-#getiing kaggle dataset directly to Colab
-&gt;!pip install -q kaggle
-
-#download datasets that are not listed in the kaggle competitions
-&gt;!kaggle datasets download -d maricinnamon/'competition name' -p /content/drive/MyDrive/ --unzip
-					</code>
-				</pre>
+					<pre >						
+						<code>
+	def tokenize(self, text):
+		text = self.clean(text).lower()
+		return re.split("\W+", text)
+				
+	def get_word_counts(self, words):
+		word_counts = {}
+		for word in words:
+			word_counts[word] = word_counts.get(word, 0.0) + 1.0
+		return word_counts
+						</code>
+					</pre>
 				<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+						<b>2. High level implementation - training, accuracy and predictions</b>
+				</blockquote>
+				<br>
+					After extracting all the above data, we write another fucntion (predict) to out the class label for new data. We apply Naive Base directly
+					here. For example, given a sentence, we need to iterate each word and compute the log of how many times we have seen a word belong to each class divided by total count of all words in that class.
+					We calculate this for each class and sum them all up.
+
+					Then we add the log class priors to check which score is bigger for that sentence.
+					The largest score will be the predicted class.
+
+					<br/>
+					<br/>
+					<b> Dealing with Imbalanced Data</b>
+					Analysis of imbalanced datasets leads to less accurate predictions unless the datasets are properly balanced after pre-processing
+					<img src="images/dataTypeClassify.jpg" alt="" >
+				<br/>
+				<br/>
+					<b> OverSampling Technique</b>
+					Oversampling is appropriate when data scientists do not have enough information. One class is abundant, or the majority, and the other is rare, or the minority
+				<img src="images/overfitting.jpg" alt="" >
+				<br/>
+				<img src="images/Oversamplingpredictions.jpg" alt="" >
+				<br/>
+				<b> UnderSampling Technique</b>
+				Undersampling is appropriate when there is plenty of data for an accurate analysis. Typically, scientists randomly delete events in the majority classExternal link:open_in_new to end up with the same number of events as the minority class. 
+				<img src="images/Undersampling.jpg" alt="" >
+				<br/>
+				<img src="images/undersamplingpred.jpg" alt="" >
+				<br/>
+				<b> SMOTE Technique</b>
+				SMOTE is an oversampling technique where the synthetic samples are generated for the minority class. This algorithm helps to overcome the overfitting problem posed by random oversampling. It focuses on the feature space to generate new instances with the help of interpolation between the positive instances that lie together.
+				<img src="images/Smotesmoothing.jpg" alt="" >
+				<br/>
+
+				<b>Near Miss Technique</b>
+				It can be grouped under undersampling algorithms and is an efficient way to balance the data. The algorithm does this by looking at the class distribution and randomly eliminating samples from the larger class. When two points belonging to different classes are very close to each other in the distribution, this algorithm eliminates the datapoint of the larger class thereby trying to balance the distribution. 
+				<img src="images/nearmisssmoothing.jpg" alt="" >
+				<br/>
+				<b>Conclusions</b>
+				SMOTE is also supposed to produce good results. Just make sure that you are not applying SMOTE before using cross-validation (or partitioning your data into train and validation sets). If you do that, there is a high possibility of overfitting because you are introducing duplicates (or synthetic samples) to the validation data set as well which is absolutely not recommended.
+				<br/>
+				
+
+				<br>
+
+				
+					
+				<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+					<b>3. Laplace smoothing effect</b>
+				</blockquote>
+				<br>
+					Something to note, log of 0 is undefined! We can encounter a word that is in the vocublary of a certain category but might 
+					not be in another class's vocublary. One way around this is to use Laplace smoothing. We simply add 1 to the numerator, but we also
+					add size of the vocublary of the denomniator to balance it
+				<br>
+				<br><br>
+				<code>
+					log_w_given = math.log( (self.word_counts[label].get(word, 0.0) + 1 if smoothing else 0) / (self.num_messages[label] + len(self.vocab) if smoothing else 0))
+			  	</code>
+
+		   <blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+					<b>4. Calculating probability</b>
+			</blockquote>
+			<br>
+				We can calulate probability of occurence of a word by dividing the num of sentences containing ‘the’ and total sentences.
+				We can calulate conditional probability of a word by dividing the num of sentences for particular class containing ‘the’ and number of sentences which belong to that class
+			<br>
+			
+
+			<pre >						
+				<code>
+		def p(self, word, X):
+			n = len(X)
+			count = 0
+			for label in self.labels:
+				count += self.word_counts[label][word]
+			return count/n
+				
+		def conditional_p(self, word):
+			conditional_p = {}
+			for label in self.labels:        
+				n = self.word_counts[label][word]
+				total = self.num_messages[label]
+				conditional_p[label] = n/total
+			return conditional_p
+				</code>
+			</pre>
+
+			<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+				<b>5. Top 5 words for each class </b>
+		</blockquote>
+		<br>
+			Since we already have the count of words for each label, we can use Counter operator
+			to find the top 5 words that belong to each class
+		<br>
+		<pre >						
+			<code>
+	def top(self, n):
+		top_words = {}
+		for label in self.labels:
+			top_words[label] = dict(Counter(self.word_counts[label]).most_common(5))
+		return top_words
+			</code>
+		</pre>	
+		<img src="images/prediction.jpg" alt="" >
+				<br/>		
+				
+				
+				<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+					
 	
-				<h3 class="py-2 font-sans">Splitting kaggle Datasets into Dev/Valid/Test ratio </h3>			
-				</blockquote></p>			
-<p>
-<pre class="bg-gray-900 rounded text-white font-mono text-base">
-<code>
-&gt;pip install split-folders
-&gt;splitfolders.ratio("/content/drive/MyDrive/", output="/content/drive/MyDrive/SplitData",seed=1337, ratio=(.8, .1, .1), group_prefix=None, move=False)
-</code>
-</pre>
-
-
-
-<p>
-	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-	
-	<h4 class="py-2 font-sans">Model Evaluation on differnt CNN models</h4></blockquote>
-	<img src="performancemeasure.jpg" alt="" >
-</p>
-
-
-
-<p>
-	<br>
-	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-		Model-1 (no pre-processing)</blockquote>
-<img src="model1.jpg" height="500" width="500" align="left" alt="" ><br>
+			</p>
+<!-- <img src="model1.jpg" height="500" width="500" align="left" alt="" ><br>
 <img src="model1classifier.jpg" height="500" width="500" align="left" alt="" ><br>
 <img src="model1log.jpg" height="500" width="500" align="left" alt="" ><br>
 <img src="model1graph.jpg" height="500" width="500" align="left" alt="" ><br>
-<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
-
-</p>
-<p>
-	<br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-		Model-2 (with pre-processing parameters)</blockquote>
-	<img src="model2.jpg" height="500" width="500" align="left"  alt="" >
-	<img src="model2classifier.jpg" height="500" width="500" align="left" alt="" >
-	<img src="model2log.jpg" height="500" width="500" align="left" alt="" >
-	<img src="model2graph.jpg"height="500" width="500" align="left"  alt="" >
-	<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
-
-</p>
-<p>
-	<br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-		Model-3 (increase layers(4))</blockquote>
-		<img src="model3.jpg" height="500" width="500" align="left" alt="" >
-		<img src="model3classifier.jpg" height="500" width="500" align="left" alt="" >
-		<img src="model3log.jpg" height="500" width="500" align="left" alt="" >
-		<img src="model3graph.jpg" height="500" width="500" align="left" alt="" >
-		<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
-		
-</p>
-		
-<p>
-	<br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br>
-	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-		Model-4 (increase epoch limit(30))</blockquote>
-	<img src="model4.jpg" height="500" width="500" align="left"  alt="" >
-	<img src="model4classifier.jpg" height="500" width="500" align="left"  alt="" >
-	<img src="model4log.jpg" height="500" width="500" align="left"  alt="" >
-	<img src="model4graph.jpg" height="500" width="500" align="left"  alt="" >
-	<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
-	
-</p>
-
-<p>
-	<br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br>
-	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-		Model-5 (increase layers(5))</blockquote>
-	<img src="model5.jpg" height="500" width="500" align="left" alt="" >
-	<img src="model5classifier.jpg" height="500" width="500" align="left" alt="" >
-	<img src="model5log.jpg" height="500" width="500" align="left" alt="" >
-	<img src="model5graph.jpg" height="500" width="500" align="left" alt="" >
-	<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
-	
-</p>
-
-<p>
-	<br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br>
-	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-		Model-6 (number of neuron=100,200,100(3 layers))</blockquote>
-	<img src="model6.jpg" height="500" width="500" align="left" alt="" >
-	<img src="model6classifier.jpg" height="500" width="500" align="left" alt="" >
-	<img src="model6log.jpg" height="500" width="500" align="left" alt="" >
-	<img src="model6graph.jpg" height="500" width="500" align="left" alt="" >
-	<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
-	
-</p>
-<p>
-	<br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br>
-	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-		Model-7 (number of neuron=200,300,100(3 layers))</blockquote>
-	<img src="model7.jpg" height="500" width="500" align="left" alt="" >
-	<img src="model7classifier.jpg" height="500" width="500" align="left" alt="" >
-	<img src="model7log.jpg" height="500" width="500" align="left" alt="" >
-	<img src="model7graph.jpg" height="500" width="500" align="left" alt="" >
-	<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
-	
-</p>
-<p>
-	<br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br>
-	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-		Model-8 (shape of conv2d=(32,32,3))</blockquote>
-	<img src="model8.jpg" height="500" width="500" align="left" alt="" >
-	<img src="model8classifier.jpg" height="500" width="500" align="left" alt="" >
-	<img src="model8log.jpg" height="500" width="500" align="left" alt="" >
-	<img src="model8graph.jpg" height="500" width="500" align="left" alt="" >
-	<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
-	
-</p>
-<p>
-	<br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br>
-	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-Model-9: no. of neuron=200,300,100,200,300 layer(5) shape of conv2d=(128,128,1)
-</blockquote>
-	<img src="model9.jpg" height="500" width="500" align="left" alt="" >
-	<img src="model9classifier.jpg"  height="500" width="500" align="left" alt="" >
-	<img src="model9log.jpg" height="500" width="500" align="left" alt="" >
-	<img src="model9graph.jpg" height="500" width="500" align="left" alt="" >
-	<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br>
-	
-</p>
-<p>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-		
-	<h4 class="py-2 font-sans">Time-Differnce between Models</h4></blockquote>
-	<!-- <img src="modelperformance.jpg" height="500" width="500" align="left" alt="" > -->
-	<img src="trainingtime.jpg" height="500" width="500" align="left" alt="" >
-
-</p>
-
-<p>
-	<br><br><br><br><br><br><br><br><br><br>
-	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-		
-	<h4 class="py-2 font-sans">Performance Measures</h4></blockquote>
-	<img src="performanceloss.jpg" height="500" width="500" align="left" alt="" >
-	<img src="performance.jpg"  height="500" width="500" align="left" alt="" >
-
-</p>
-<p>
-	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-	<br><br><br>
-	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-
-	<h9 class="py-2 font-sans">Prediction on New Data</h9>
-	</blockquote>
-	
-	<pre class="bg-gray-900 rounded text-white font-mono text-base">
-				
-	<code>
-#Making_single_predictions
-from tensorflow.keras.utils import load_img,img_to_array
-
-testImage="/content/drive/MyDrive/caltech101-airplanes-motorbikes-schooners/SplitData/test/airplanes/image_0013.jpg"
-test_image=load_img(testImage,target_size=(128,128))
-test_image=img_to_array(test_image)
-test_image=np.expand_dims(test_image,axis=0)
-result=classifier.predict(test_image,verbose=0)
-img=cv2.imread(testImage)
-
-plt.imshow(img)
-plt.title('picture')
-plt.show()
-print("_"*50)
-print('Prediction is: ',Resultmap[np.argmax(result)])
-	</code>
-	</pre>
-	<img src="predictionresult.jpg"height="500" width="500" align="left"  alt="" >
-</p>
-
-<p>
-	<br><br><br><br><br><br><br><br><br>
-	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-
-	<h4 class="py-2 font-sans"><b>Further Improvisation </b></h4></blockquote>
-	<b>Pruning</b><br>
-Pruning can be used to optimize the number of neurons in the hidden layer and increases computational and resolution performances. It trims the neurons during training, by identifying those which have no impact on the performance of the network. It can also be identified by checking the weights of the neurons, weights that are close to zero have relatively less importance.
-<br>Moreover, the number of neurons and number layers required for the hidden layer also depends upon training cases, amount of outliers, the complexity of data that is to be learned, and the type of activation functions used.
-</p>
-
-<p>
-	<br>
-	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-
-	<h4 class="py-2 font-sans"><b>Challenges faced</b></h4>
-	</blockquote>
-
-	<b>Challenge 1:</b>In Model8 Input Size and input shape was leading to alot of  matrix incompatibility.
-	<br><b>Solution:</b> Used same pixels for both inputSize and inputShape
-	<br><br><b>Challenge 2:</b> Loading dataset from kaggle datset
-	<br><b>Solution:</b> Used kaggle.json to create session between google Colab and kaggle website
-	<br><br><b>Challenge 3:</b> Number of Neurons In Input and Output Layers
-	<br><b>Solution:</b>If less number of neurons is chosen it will lead to underfitting and high statistical bias. Whereas if we choose too many neurons it may lead to overfitting, high variance, and increases the time it takes to train the network.
-	<br>
-
-</p>
-<p>
-	<br>
-	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-
-	<h4 class="py-2 font-sans"><b>References</b></h4>	</blockquote>
-	[1] Filemon.Warsaw-Poland. Ways to download kaggle data in Google Colab
-	DOI:https://www.kaggle.com/general/74235
-	<br>
-	[2] Johannes Filter.Release 0.5.1Split folders with files (e.g. images) into train, validation and test (dataset) folders.DOI:https://libraries.io/pypi/split-folders
-	<br>
-	[3] Jannik Zürn PhD student in robotics DOI https://jannik-zuern.medium.com/using-a-tpu-in-google-colab-54257328d7da
-	</p>
-
-<p>
-	<br>
-	<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-
-	<h4 class="py-2 font-sans"><b> Contribution over References</b></h4></blockquote>
-	-directly mount google drive instead of storing split datasets (default) sample_data folder provided by google colab.
-	<br>-one epoch takes approximately 25 secs compared to the approx. 7 minutes on the Tesla K80 GPU, resulting in a speedup of almost 17.Thus,Enabling TPU support in notebook 
-</p>
-			
-			
-			
-			
+<img src="axis.jpg" height="120" width="120" align="left" alt="" ><br> -->
 
 			
 			
+			
+						
 
 			
 			<!--/ Post Content-->
@@ -422,7 +283,7 @@ Pruning can be used to optimize the number of neurons in the hidden layer and in
 
 		<!--Author-->
 		<div class="flex w-full items-center font-sans px-4 py-12">
-			<img class="w-10 h-10 rounded-full mr-4" src="sakshi.jpg" alt="Avatar of Author">
+			<img class="w-10 h-10 rounded-full mr-4" src="images/sakshi.jpg" alt="Avatar of Author">
 			<div class="flex-1 px-2">
 				<p class="text-base font-bold text-base md:text-xl leading-none mb-2">Sakshi</p>
 				<p class="text-gray-600 text-xs md:text-base">Learning never Stops</p>
