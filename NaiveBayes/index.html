@@ -77,7 +77,7 @@
 			<!--Lead Para-->
 			<p class="py-6">
 				👋 Hi!!
-				Naive Bayes Classifications is a Supervised machine learning algorithm used for classification.It consist of two words Naive and Bayes. So let’s first discuss the Bayes Theorem.
+				[1] Naive Bayes Classifications is a Supervised machine learning algorithm used for classification.It consist of two words Naive and Bayes. So let’s first discuss the Bayes Theorem.
 				
 				<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
 					<b>What is Bayes Theorem?</b>
@@ -162,7 +162,7 @@
 					<img src="images/dataTypeClassify.jpg" alt="" >
 				<br/>
 				<br/>
-					<b> OverSampling Technique</b>
+					<b> OverSampling Technique[3]</b>
 					Oversampling is appropriate when data scientists do not have enough information. One class is abundant, or the majority, and the other is rare, or the minority
 				<img src="images/overfitting.jpg" alt="" >
 				<br/>
@@ -175,7 +175,8 @@
 				<img src="images/undersamplingpred.jpg" alt="" >
 				<br/>
 				<b> SMOTE Technique</b>
-				SMOTE is an oversampling technique where the synthetic samples are generated for the minority class. This algorithm helps to overcome the overfitting problem posed by random oversampling. It focuses on the feature space to generate new instances with the help of interpolation between the positive instances that lie together.
+				SMOTE algorithm applies [2]KNN approach where it selects K nearest neighbors, joins them and creates the synthetic sample for the minority class. This algorithm helps to overcome the overfitting problem posed by random oversampling. It focuses on the feature space to generate new instances with the help of interpolation between the positive instances that lie together.
+				
 				<img src="images/Smotesmoothing.jpg" alt="" >
 				<br/>
 
@@ -193,7 +194,7 @@
 				
 					
 				<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
-					<b>3. Laplace smoothing effect</b>
+					<b>3. Laplace smoothing effect[4]</b>
 				</blockquote>
 				<br>
 					Something to note, log of 0 is undefined! We can encounter a word that is in the vocublary of a certain category but might 
@@ -250,9 +251,34 @@
 			</code>
 		</pre>	
 		<img src="images/prediction.jpg" alt="" >
-				<br/>		
+				<br/>	
+				<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+					<b>Challenges Faced</b>
+			</blockquote>	
+			<br/>
+			->The strong assumption about the features to be independent which is hardly true in real life applications.
+			<br/>
+			->Zero Frequency i.e. if the category of any categorical variable is not seen in training data set then model assigns a zero probability to that category and then it's difficult to perform prediction .
+			<br/>
+			<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+					<b>Contributions </b>
+					</blockquote>
+				
+				<br>-> achieving high accuracy.
+				<br>-> making the classification fair for different groups of users.
+				<br>-> We have also developed a custom pipeline through which we can modify the model for other datasets in less time. 
+			
+			<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
+				<b>Reference</b>
+		</blockquote>
+				<br>[1] Basant Agarwal and Namita Mittal, "Text Classification Using Machine Learning Methods-A Survey," springer, 2014.
+				<br>[2] Gongde Guo, Hui Wang, David Bell, Yaxin Bi, Kieran Greer, "KNN Model-Based Approach in Classification," springer,
+		2003.
 				
 				
+				<br>[3] Dr.K.Prabha S.Brindha Dr.S.Sukumaran, "A SURVEY ON CLASSIFICATION TECHNIQUES FOR TEXT MINING,"
+		IEEE, 2016.
+				<br>[4]Hermann Ney, David Vilar,Enrique Vidal,Alfons Juan, "Effect of Feature Smoothing Methods in Text Classification Tasks." January 2004
 				<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
 					
 	
