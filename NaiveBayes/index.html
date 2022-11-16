@@ -83,14 +83,14 @@
 					<b>What is Bayes Theorem?</b>
 				</blockquote>
 				
-				Bayes theorem works on conditional probability. Conditional probability is the probability that something will happen, given that something else has already occurred. Using the conditional probability, we can calculate the probability of an event using its prior knowledge.
-				It is stated mathematically as the following equation,
-				<a target="_blank" class="text-green-500 no-underline hover:underline" href="https://www.kaggle.com/datasets/gaveshjain/ford-sentence-classifiaction-dataset?resource=download">DataSet from Kaggle</a><br/>
+				Bayes theorem works on conditional probability. Conditional probability is the probability that something will happen, given that something else has already occurred.
+				It is mathematically stated as below,
+				<a target="_blank" class="text-green-500 no-underline hover:underline" href="https://www.kaggle.com/datasets/gaveshjain/ford-sentence-classifiaction-dataset?resource=download"></a><br/>
 				<img src="images/naivebayesformula.jpg" alt="" >
 				<br/>
 				where,<br/>
     					<b>–</b> A and B are events and P(B)!=0
-    					<br/><b>–</b> P(A | B) is a conditional probability that defines the likelihood of event A occurring given that B is true, also – known as posterior probability,
+    					<br/><b>–</b> P(A | B) is a conditional probability that defines the likelihood of event A occurring given that B is true, also known as posterior probability,
     					<br/><b>–</b> P(B | A) is a conditional probability that defines the likelihood of event B occurring given that A is true, also known as the likelihood
     					<br/><b> –</b> P(A) and P(B) are the probabilities of observing A and B independently of each other, also known as prior probability
 
@@ -123,55 +123,63 @@
 				<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
 						<b>1. Understanding the algorithm</b>
 				</blockquote>
-				<br>
-					We need three things: the probability that a sentence belongs to a particular class (log priors), a vacublary of words,
-					and word frequency for each class/label (number of times a given word appears in sentence of particular class/label)
-
+				
+					We need Three things: 
+					<br>–the probability that a sentence belongs to a particular class (log priors), 
+					<br>–a vocabulary of words,
+					<br>–and word frequency for each class/label (number of times a given word appears in sentence of particular class/label)
+					<br>
 					We compute the log class priors by counting how many sentences are in our dataset for each class and dividing by the total number.
 					Finally we use the math library to take the log						
-				<br>
+				
 				<p>
 					<pre >						
 						<code>
-	def tokenize(self, text):
-		text = self.clean(text).lower()
-		return re.split("\W+", text)
+def tokenize(self, text):
+	text = self.clean(text).lower()
+	return re.split("\W+", text)
 				
-	def get_word_counts(self, words):
-		word_counts = {}
-		for word in words:
-			word_counts[word] = word_counts.get(word, 0.0) + 1.0
-		return word_counts
+def get_word_counts(self, words):
+	word_counts = {}
+	for word in words:
+		word_counts[word] = word_counts.get(word, 0.0) + 1.0
+	return word_counts
 						</code>
 					</pre>
 				<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
 						<b>2. High level implementation - training, accuracy and predictions</b>
 				</blockquote>
-				<br>
+				
 					After extracting all the above data, we write another fucntion (predict) to out the class label for new data. We apply Naive Base directly
 					here. For example, given a sentence, we need to iterate each word and compute the log of how many times we have seen a word belong to each class divided by total count of all words in that class.
 					We calculate this for each class and sum them all up.
 
 					Then we add the log class priors to check which score is bigger for that sentence.
-					The largest score will be the predicted class.
+					<br/>
+					"The largest score will be the predicted class."
 
 					<br/>
 					<br/>
 					<b> Dealing with Imbalanced Data</b>
-					Analysis of imbalanced datasets leads to less accurate predictions unless the datasets are properly balanced after pre-processing
-					<img src="images/dataTypeClassify.jpg" alt="" >
+					Analysis of imbalanced datasets leads to less accurate predictions unless the datasets are properly balanced after pre-processing.Below is Type distribution of training dataset:
+					<br/>
+					<br/>
+					<img src="images/dataTypeClassify.jpg" alt=""  width="300" height="159" >
 				<br/>
+				
+				[3]<b>OverSampling Technique</b>
+					Oversampling is appropriate when data scientists do not have enough information. One class is abundant, or the majority, and the other is rare, or the minority.
+					
+					<br/><img src="images/overfitting.jpg" alt=""  width="300" height="159" >
 				<br/>
-					<b> OverSampling Technique[3]</b>
-					Oversampling is appropriate when data scientists do not have enough information. One class is abundant, or the majority, and the other is rare, or the minority
-				<img src="images/overfitting.jpg" alt="" >
-				<br/>
+				Below are Predictions with OverSampling Technique:
 				<img src="images/Oversamplingpredictions.jpg" alt="" >
 				<br/>
 				<b> UnderSampling Technique</b>
-				Undersampling is appropriate when there is plenty of data for an accurate analysis. Typically, scientists randomly delete events in the majority classExternal link:open_in_new to end up with the same number of events as the minority class. 
-				<img src="images/Undersampling.jpg" alt="" >
+				Undersampling is a technique to balance uneven datasets by keeping all of the data in the minority class and decreasing the size of the majority class.
+				<img src="images/Undersampling.jpg" alt=""  width="300" height="159" >
 				<br/>
+				Below are Predictions with UnderSampling Technique:
 				<img src="images/undersamplingpred.jpg" alt="" >
 				<br/>
 				<b> SMOTE Technique</b>
@@ -185,7 +193,7 @@
 				<img src="images/nearmisssmoothing.jpg" alt="" >
 				<br/>
 				<b>Conclusions</b>
-				SMOTE is also supposed to produce good results. Just make sure that you are not applying SMOTE before using cross-validation (or partitioning your data into train and validation sets). If you do that, there is a high possibility of overfitting because you are introducing duplicates (or synthetic samples) to the validation data set as well which is absolutely not recommended.
+				SMOTE is supposed to produce good results. Just make sure that you are not applying SMOTE before using cross-validation (or partitioning your data into train and validation sets). If you do that, there is a high possibility of overfitting because you are introducing duplicates (or synthetic samples) to the validation data set as well which is absolutely not recommended.
 				<br/>
 				
 
@@ -256,17 +264,23 @@
 					<b>Challenges Faced</b>
 			</blockquote>	
 			<br/>
-			->The strong assumption about the features to be independent which is hardly true in real life applications.
+			-> Understanding and applying data pre processing techniques like lower casing, removing punctuations, stop words and whitespaces
 			<br/>
-			->Zero Frequency i.e. if the category of any categorical variable is not seen in training data set then model assigns a zero probability to that category and then it's difficult to perform prediction .
+			-> Researched and applied undersampling algorithms (Near miss, edited nearest neighbors) and oversampling algorithms (random, SMOTE) on the original imbalanced dataset
+			<br/>
+			-> Understanding the concept behind word vectors which represent words as multidimensional continuous floating point numbers where semantically similar words are mapped to proximate points in geometric space.
+			<br/>
+			-> Faced high memory usage issues which caused the jupyter notebook to timeout. Resolved these issues successfully.
+			<br/>
+			-> I encountered an exception for the following case - Zero Frequency i.e. if the category of any categorical variable is not seen in training data set then model assigns a zero probability to that category and then it's difficult to perform prediction. I resolved this by applying Laplace smoothing described above.
 			<br/>
 			<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
 					<b>Contributions </b>
 					</blockquote>
 				
-				<br>-> achieving high accuracy.
-				<br>-> making the classification fair for different groups of users.
-				<br>-> We have also developed a custom pipeline through which we can modify the model for other datasets in less time. 
+				<br>-> Achieving better accuracy by successfully applying different sampling algorithms.
+				<br>-> Implementing Naive Bayes algorithm while keeping a low memory footprint. In my older version, I applied random sampling techniques to maintain a good balance between accuracy and memory but eventually optimized by creating a separate class for the implemenation and managing the scope of the objects in memory.
+				<br>-> Created a utility to build configurable pipelines which is generic and useful for other datasets without requiring too many changes.
 			
 			<blockquote class="border-l-4 border-green-500 italic my-8 pl-8 md:pl-12">
 				<b>Reference</b>
